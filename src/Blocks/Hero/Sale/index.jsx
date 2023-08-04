@@ -112,7 +112,6 @@ const Sale = ({ }) => {
   }, []);
 
   const deposit = async (idx) => {
-    console.log("deposite", idx)
     fetchWalletData();
     const stakingContract = await getStakingContract();
     const tokenContract = await getTokenContract();
@@ -127,7 +126,6 @@ const Sale = ({ }) => {
 
   return (
     pool.length && user.length && pool.map((tmp, idx) => {
-      console.log(tmp, idx, "tmp-idx")
       return (
         <div className="hero-sale-container-outer" key={idx}>
           <div className="hero-sale-container">
@@ -155,6 +153,7 @@ const Sale = ({ }) => {
               <Grid item xs={6} style={{ textAlign: 'right' }}>
                 <b>Armor</b>
               </Grid>
+
               <Grid item xs={12}>
                 <Button onClick={()=>handleOpen(idx)} className="hero-sale-section-brand-button">Enable Stacking</Button>
                 <Modal

@@ -83,9 +83,9 @@
 
   border: 1px solid #2e2f2f;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 450px) {
   .walletmenu--open {
-    top: 50%;
+    top: 25%;
     right: 50%;
     transform: translate(50%, -100px);
   }

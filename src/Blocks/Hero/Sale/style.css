@@ -4,7 +4,7 @@
   align-items: center;
   flex-direction: column;
   gap: 26.13px;
-  width: 100%;
+  /* width: 100%; */
 }
 .hero-sale-container {
   width: 360px;
@@ -323,13 +323,14 @@
   color: darkmagenta !important;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 450px) {
   .hero-sale-container {
     width: 100%;
     border-radius: 29px;
     padding: 30px;
   }
 }
+
 @media screen and (max-width: 650px) {
   .hero-sale-section-a {
     justify-content: flex-start;
