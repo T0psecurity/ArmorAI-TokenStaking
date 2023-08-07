@@ -17,7 +17,8 @@ import { ethers, BigNumber } from "ethers";
 const TOTAL_POOL = 4;
 const TOKEN = "0x01d4C5A517302609331094C56Cc8727640611667";
 // const STAKING = "0x87CA5438671fb9b736A86CC4cA39d8FEF844625D";
-const STAKING = "0x523500fA5bBAC424DDFDc0171a9cC13Cc9C27731";
+// const STAKING = "0x523500fA5bBAC424DDFDc0171a9cC13Cc9C27731";
+const STAKING = "0xa6897aE5B315d66C30AEFe1aF5cDc1251B4aA722"; // 1e18
 const STAKE_AMOUNT = 100;
 
 
@@ -28,7 +29,7 @@ const Sale = ({ }) => {
 
   const [open2, setOpen2] = React.useState(false);
   const handleOpen2 = (key) => { setOpen2(true); setKey(key); };
-  const handleClose2 = () => setOpen(false);
+  const handleClose2 = () => setOpen2(false);
 
   const { getContract } = useContract();
 
@@ -137,8 +138,15 @@ const Sale = ({ }) => {
     fetchWalletData();
     const stakingContract = await getStakingContract();
     console.log("withdraw")
-    const result = await stakingContract["withdraw(uint256,uint256)"](idx, amount);
-    console.log("result:", result);
+    try {
+      await stakingContract["withdraw(uint256,uint256)"](idx, amount);
+    } catch (e) {
+      // const data = e.data;
+      // const txHash = Object.keys(data)[0]; // TODO improve
+      // const reason = data[txHash].reason;
+      
+      console.log(e.message); // prints "This is error message"
+    }
     handleClose2()
   }
 
@@ -147,7 +155,7 @@ const Sale = ({ }) => {
     console.log("start add pool:", stakingContract)
     const apy = 100;
     const lockday = 100;
-    await stakingContract["add(address,address,uint256,uint256)"](TOKEN, TOKEN, 140, 80);
+    await stakingContract["add(address,address,uint256,uint256)"](TOKEN, TOKEN, 80, 20);
     console.log("end add pool")
   }
 
