@@ -35,17 +35,21 @@ const useAuth = () => {
             console.log("Else Error")
             window.localStorage.removeItem("walletconnect")
             if (error instanceof NoEthereumProviderError) {
+              console.log("if")
               toast('Provider Error', 'No provider was found')
+              console.log("after toast")
             } else if (
               error instanceof UserRejectedRequestErrorInjected ||
               error instanceof UserRejectedRequestErrorWalletConnect
             ) {
+              console.log("else if")
               if (connector instanceof WalletConnectConnector) {
                 const walletConnector = connector
                 walletConnector.walletConnectProvider = null
               }
               toast('Authorization Error', 'Please authorize to access your account')
             } else {
+              console.log("else")
               toast(error.name, error.message)
             }
           }
