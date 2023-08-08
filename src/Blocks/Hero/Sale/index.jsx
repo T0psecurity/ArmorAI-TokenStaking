@@ -12,13 +12,15 @@ import abi from "../../../abi/Staking.json";
 import TokenABI from "../../../abi/MockERC20.json";
 import useContract from "../../../hooks/useContract";
 import { ethers, BigNumber } from "ethers";
+import { toast } from "react-toastify";
 
 
-const TOTAL_POOL = 4;
+// const TOTAL_POOL = 5;
 const TOKEN = "0x01d4C5A517302609331094C56Cc8727640611667";
 // const STAKING = "0x87CA5438671fb9b736A86CC4cA39d8FEF844625D";
 // const STAKING = "0x523500fA5bBAC424DDFDc0171a9cC13Cc9C27731";
-const STAKING = "0xa6897aE5B315d66C30AEFe1aF5cDc1251B4aA722"; // 1e18
+// const STAKING = "0xa6897aE5B315d66C30AEFe1aF5cDc1251B4aA722"; // 1e18
+const STAKING = "0x3A2f0d9d92dEbeB4F79d645c7cd61fEc0AaAc3C5";
 const STAKE_AMOUNT = 100;
 
 
@@ -46,6 +48,7 @@ const Sale = ({ }) => {
   const fetchPoolInfo = async () => {
     const stakingContract = await getStakingContract();
     let poolArray = [];
+    const TOTAL_POOL = await stakingContract["poolCount()"]();
     for (let i = 0; i < TOTAL_POOL; i++) {
       const pool = await stakingContract["poolInfo(uint256)"](i);
       const tmpPool = {
@@ -63,6 +66,7 @@ const Sale = ({ }) => {
   const setAmountValue = async (event) => {
     setAmount(event.target.value);
   }
+
   const fetchUserInfo = async (address) => {
     const stakingContract = await getStakingContract();
     const tokenContract = await getTokenContract();
@@ -72,6 +76,9 @@ const Sale = ({ }) => {
     );
     console.log(allowAmount > STAKE_AMOUNT);
     let userArray = [];
+    // console.log("before poolcount")
+    const TOTAL_POOL = Number(await stakingContract["poolCount()"]());
+    // console.log("TOTAL_POOL = ", TOTAL_POOL)
     for (let i = 0; i < TOTAL_POOL; i++) {
       const user = await stakingContract["userDetail(uint256,address)"](
         i,
@@ -124,12 +131,20 @@ const Sale = ({ }) => {
     const tokenContract = await getTokenContract();
     if (!user[idx].available) {
       console.log("approve")
-      await tokenContract["approve(address,uint256)"](STAKING, amount);
+      try {
+        await tokenContract["approve(address,uint256)"](STAKING, amount);
+      } catch (e) {
+        console.log("approve error: ", e.code)
+        toast.error('Approve Error');
+      }
     } else {
       console.log("deposit")
-      // const deposit_amount = ethers.BigNumber.from(amount*1e18)
-      console.log("Bignumber")
-      await stakingContract["deposit(uint256,uint256)"](idx, amount);
+      try {
+        await stakingContract["deposit(uint256,uint256)"](idx, amount);
+      } catch (e) {
+        console.log("deposit error: ", e.code)
+        toast.error('Deposit Error');
+      }
     }
     handleClose()
   };
@@ -141,11 +156,8 @@ const Sale = ({ }) => {
     try {
       await stakingContract["withdraw(uint256,uint256)"](idx, amount);
     } catch (e) {
-      // const data = e.data;
-      // const txHash = Object.keys(data)[0]; // TODO improve
-      // const reason = data[txHash].reason;
-      
-      console.log(e.message); // prints "This is error message"
+      console.log("withdraw error: ", e.message);
+      toast.error('Withdraw Error');
     }
     handleClose2()
   }
@@ -155,19 +167,19 @@ const Sale = ({ }) => {
     console.log("start add pool:", stakingContract)
     const apy = 100;
     const lockday = 100;
-    await stakingContract["add(address,address,uint256,uint256)"](TOKEN, TOKEN, 80, 20);
+    await stakingContract["add(address,address,uint256,uint256)"](TOKEN, TOKEN, 10, 1);
     console.log("end add pool")
   }
 
   return (
-    <div style={{ width: "80%" }}>
+    <div style={{  }}>
       {/* <div><Grid>
         <Button onClick={() => addpool()}>AddPool</Button>
       </Grid></div> */}
-      <Grid container spacing={5} columns={{ lg: 3, md: 3, sm: 1, xs: 1 }}>
+      <Grid container spacing={5} >
         {pool.length && user.length && pool.map((tmp, idx) => {
           return (
-            <Grid item lg={1} md={1} sm={1} xs={1}>
+            <Grid item xs={12} sm={6} lg={4} xl={3}>
               <div className="hero-sale-container-outer" key={idx}>
                 <div className="hero-sale-container">
                   <Grid container>

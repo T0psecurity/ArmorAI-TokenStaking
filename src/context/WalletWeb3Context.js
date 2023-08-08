@@ -115,6 +115,10 @@ export const WalletWeb3Provider = ({ children }) => {
       localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
     }
   };
+
+  useEffect(() => {
+    connectWallet;
+  }, [])
   //disconnect wallet
   const disconnectWallet = () => {
     resetState();

@@ -74,19 +74,7 @@ const Header = ({ setisWalletOptionsOpen, offsetY }) => {
 
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollValue]);
-  const scrollWithOffset = (el, offset) => {
-    let elementPosition;
-    if (offsetY === 0) {
-      elementPosition = el.offsetTop - offset - 100;
-    } else {
-      elementPosition = el.offsetTop - offset;
-    }
-    window.scroll({
-      top: elementPosition,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
+
   return (
     <div
       className={

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Modal from "../Modal";
 import "./style.css";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
@@ -10,6 +10,10 @@ const WalletMenu = ({ isWalletOptionsOpen, setisWalletOptionsOpen }) => {
   const [isOpenTransactions, setisOpenTransactions] = useState(false);
   const { account: wallet } = useActiveWeb3React()
   const { logout: disconnectWallet } = useAuth()
+
+  useEffect(() => {
+    setisWalletOptionsOpen(false);
+  }, []);
 
   return (
     <>
@@ -46,9 +50,9 @@ const WalletMenu = ({ isWalletOptionsOpen, setisWalletOptionsOpen }) => {
               Recent Transactions
             </div> */}
             {/* <div className="walletmenu--divider" /> */}
-              <div className="walletmenu--option" onClick={disconnectWallet}>
-                Disconnect
-              </div>
+            <div className="walletmenu--option" onClick={disconnectWallet}>
+              Disconnect
+            </div>
           </div>
         </div>
       )}
