@@ -15,12 +15,12 @@ import { ethers, BigNumber } from "ethers";
 import { toast } from "react-toastify";
 
 
-// const TOTAL_POOL = 5;
+
 const TOKEN = "0x01d4C5A517302609331094C56Cc8727640611667";
 // const STAKING = "0x87CA5438671fb9b736A86CC4cA39d8FEF844625D";
 // const STAKING = "0x523500fA5bBAC424DDFDc0171a9cC13Cc9C27731";
 // const STAKING = "0xa6897aE5B315d66C30AEFe1aF5cDc1251B4aA722"; // 1e18
-const STAKING = "0x3A2f0d9d92dEbeB4F79d645c7cd61fEc0AaAc3C5";
+const STAKING = "0x365C83E5095d6C75EA6d888304749e4dAE86F7F3";
 const STAKE_AMOUNT = 100;
 
 
@@ -167,16 +167,16 @@ const Sale = ({ }) => {
     console.log("start add pool:", stakingContract)
     const apy = 100;
     const lockday = 100;
-    await stakingContract["add(address,address,uint256,uint256)"](TOKEN, TOKEN, 10, 1);
+    await stakingContract["add(address,address,uint256,uint256)"](TOKEN, TOKEN, 15, 21);
     console.log("end add pool")
   }
 
   return (
-    <div style={{  }}>
+    <div style={{ width: "95%" }}>
       {/* <div><Grid>
         <Button onClick={() => addpool()}>AddPool</Button>
       </Grid></div> */}
-      <Grid container spacing={5} >
+      <Grid container spacing={12} >
         {pool.length && user.length && pool.map((tmp, idx) => {
           return (
             <Grid item xs={12} sm={6} lg={4} xl={3}>
@@ -208,7 +208,7 @@ const Sale = ({ }) => {
                     </Grid>
                     {/* <Grid itme xs={1}></Grid> */}
                     <Grid item xs={5}>
-                      <Button onClick={() => handleOpen(idx)} className="hero-sale-section-brand-button">Stacking</Button>
+                      <Button onClick={() => handleOpen(idx)} className="hero-sale-section-brand-button">Stack</Button>
                       <Modal
                         open={open}
                         onClose={handleClose}
@@ -225,7 +225,7 @@ const Sale = ({ }) => {
                             </Grid>
                             <Grid item xs={1} />
                             <Grid item xs={4}>
-                              <Button variant="contained" className="hero-sale-section-modal-button1" onClick={() => deposit(key)}>OK</Button>
+                              <Button variant="contained" className="hero-sale-section-modal-button1" onClick={() => deposit(key)}>Stake</Button>
                             </Grid>
                             <Grid item xs={2} />
                             <Grid item xs={4}>
@@ -254,7 +254,7 @@ const Sale = ({ }) => {
                             </Grid>
                             <Grid item xs={1} />
                             <Grid item xs={4}>
-                              <Button variant="contained" className="hero-sale-section-modal-button1" onClick={() => withdraw(key)}>OK</Button>
+                              <Button variant="contained" className="hero-sale-section-modal-button1" onClick={() => withdraw(key)}>Withdraw</Button>
                             </Grid>
                             <Grid item xs={2} />
                             <Grid item xs={4}>
