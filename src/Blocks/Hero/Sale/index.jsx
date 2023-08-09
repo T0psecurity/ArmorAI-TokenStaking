@@ -4,9 +4,11 @@ import "./style.css";
 import logoToken from "../../../assets/img/background-logo.png";
 import Icon from "../../../components/Icon";
 import { Button, Grid } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Modal from '@mui/material/Modal';
+import { CircularProgress } from "@mui/material";
 
 import abi from "../../../abi/Staking.json";
 import TokenABI from "../../../abi/MockERC20.json";
@@ -39,6 +41,7 @@ const Sale = ({ }) => {
   const [key, setKey] = useState([]);
   const [user, setUser] = useState([]);
   const [amount, setAmount] = useState([]);
+  const [depositLoading, setDepositLoading] = React.useState(false);
   const getStakingContract = async () => await getContract(STAKING, abi);
 
   const getTokenContract = async () => await getContract(TOKEN, TokenABI);
@@ -141,12 +144,14 @@ const Sale = ({ }) => {
       console.log("deposit")
       try {
         await stakingContract["deposit(uint256,uint256)"](idx, amount);
+        setDepositLoading(false);
+        toast("Staked");
       } catch (e) {
         console.log("deposit error: ", e.code)
         toast.error('Deposit Error');
       }
     }
-    handleClose()
+    handleClose();
   };
 
   const withdraw = async (idx) => {
@@ -208,7 +213,9 @@ const Sale = ({ }) => {
                     </Grid>
                     {/* <Grid itme xs={1}></Grid> */}
                     <Grid item xs={5}>
-                      <Button onClick={() => handleOpen(idx)} className="hero-sale-section-brand-button">Stack</Button>
+                      <Button onClick={() => {
+                        handleOpen(idx);
+                      }} className="hero-sale-section-brand-button">Stack</Button>
                       <Modal
                         open={open}
                         onClose={handleClose}
@@ -225,7 +232,19 @@ const Sale = ({ }) => {
                             </Grid>
                             <Grid item xs={1} />
                             <Grid item xs={4}>
-                              <Button variant="contained" className="hero-sale-section-modal-button1" onClick={() => deposit(key)}>Stake</Button>
+                              <LoadingButton
+                                variant="contained"
+                                className="hero-sale-section-modal-button1"
+                                loading={depositLoading}
+                                loadingIndicator={
+                                  <CircularProgress color="success" size={20} />
+                                }
+                                onClick={() => {
+                                  setDepositLoading(true);
+                                  deposit(key);
+                                }}>
+                                Stake
+                              </LoadingButton>
                             </Grid>
                             <Grid item xs={2} />
                             <Grid item xs={4}>
@@ -254,7 +273,19 @@ const Sale = ({ }) => {
                             </Grid>
                             <Grid item xs={1} />
                             <Grid item xs={4}>
-                              <Button variant="contained" className="hero-sale-section-modal-button1" onClick={() => withdraw(key)}>Withdraw</Button>
+                            <LoadingButton
+                                variant="contained"
+                                className="hero-sale-section-modal-button1"
+                                loading={depositLoading}
+                                loadingIndicator={
+                                  <CircularProgress color="success" size={20} />
+                                }
+                                onClick={() => {
+                                  setDepositLoading(true);
+                                  withdraw(key);
+                                }}>
+                                Withdraw
+                              </LoadingButton>
                             </Grid>
                             <Grid item xs={2} />
                             <Grid item xs={4}>

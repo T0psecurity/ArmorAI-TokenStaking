@@ -319,13 +319,13 @@
 }
 .hero-sale-section-modal-button1 {
   width:100%;
-  background-color: darkmagenta !important;
+  background-color: success !important;
   color: white !important;
 }
 .hero-sale-section-modal-button2 {
   width:100%;
-  background-color: white !important;
-  color: darkmagenta !important;
+  background-color: red !important;
+  color: white !important;
 }
 
 @media screen and (max-width: 450px) {

@@ -5,7 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "@mui/material": "^5.9.1",
+    "@mui/material": "^5.13.1",
+    "@mui/lab": "^5.0.0-alpha.133",
     "@typeform/embed": "^1.36.1",
     "@walletconnect/web3-provider": "^1.7.8",
     "@web3-react/core": "^6.1.9",
