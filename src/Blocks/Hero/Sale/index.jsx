@@ -215,7 +215,8 @@ const Sale = ({ }) => {
                     <Grid item xs={5}>
                       <Button onClick={() => {
                         handleOpen(idx);
-                      }} className="hero-sale-section-brand-button">Stack</Button>
+                        setDepositLoading(false);
+                      }} className="hero-sale-section-brand-button">Stake</Button>
                       <Modal
                         open={open}
                         onClose={handleClose}
@@ -235,9 +236,10 @@ const Sale = ({ }) => {
                               <LoadingButton
                                 variant="contained"
                                 className="hero-sale-section-modal-button1"
+                                color="secondary"
                                 loading={depositLoading}
                                 loadingIndicator={
-                                  <CircularProgress color="success" size={20} />
+                                  <CircularProgress color="secondary" size={20} />
                                 }
                                 onClick={() => {
                                   setDepositLoading(true);
@@ -248,7 +250,7 @@ const Sale = ({ }) => {
                             </Grid>
                             <Grid item xs={2} />
                             <Grid item xs={4}>
-                              <Button onClick={handleClose} variant="outlined" className="hero-sale-section-modal-button2">Cancel</Button>
+                              <Button onClick={handleClose} variant="outlined" color="error" className="hero-sale-section-modal-button1">Cancel</Button>
                             </Grid>
                           </Grid>
                         </Box>
@@ -256,71 +258,72 @@ const Sale = ({ }) => {
                     </Grid>
                     <Grid itme xs={2}></Grid>
                     <Grid item xs={5}>
-                      <Button onClick={() => handleOpen2(idx)} className="hero-sale-section-brand-button">Withdraw</Button>
-                      <Modal
-                        open={open2}
-                        onClose={handleClose2}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                      >
-                        <Box className="amount-modal">
-                          <Grid container>
-                            <Grid item xs={12} style={{ textAlign: 'center' }}>
-                              Amount
-                            </Grid>
-                            <Grid item xs={12}>
-                              <TextField style={{ width: "100%" }} id="outlined-basic" variant="outlined" inputProps={{ type: 'number' }} onChange={setAmountValue} />
-                            </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={4}>
-                            <LoadingButton
-                                variant="contained"
-                                className="hero-sale-section-modal-button1"
-                                loading={depositLoading}
-                                loadingIndicator={
-                                  <CircularProgress color="success" size={20} />
-                                }
-                                onClick={() => {
-                                  setDepositLoading(true);
-                                  withdraw(key);
-                                }}>
-                                Withdraw
-                              </LoadingButton>
-                            </Grid>
-                            <Grid item xs={2} />
-                            <Grid item xs={4}>
-                              <Button onClick={handleClose2} variant="outlined" className="hero-sale-section-modal-button2">Cancel</Button>
-                            </Grid>
+                      <Button onClick={() => {handleOpen2(idx);
+                        setDepositLoading(false);}} className="hero-sale-section-brand-button">Withdraw</Button>
+                    <Modal
+                      open={open2}
+                      onClose={handleClose2}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box className="amount-modal">
+                        <Grid container>
+                          <Grid item xs={12} style={{ textAlign: 'center' }}>
+                            Amount
                           </Grid>
-                        </Box>
-                      </Modal>
-                    </Grid>
-                    {/* <Grid itme xs={1}></Grid> */}
-                    <Grid item xs={6}>
-                      You Stacked
-                    </Grid>
-                    <Grid item xs={6} style={{ textAlign: 'right' }}>
-                      {`${user[idx].amount} ARMOR`}
-                    </Grid>
-                    <Grid item xs={6}>
-                      Your Reward
-                    </Grid>
-                    <Grid item xs={6} style={{ textAlign: 'right' }}>
-                      <b>{`${user[idx].pendingReward} ARMOR`}</b>
-                    </Grid>
-                    <Grid item xs={6}>
-                      Total Stacked in Pool
-                    </Grid>
-                    <Grid item xs={6} style={{ textAlign: 'right' }}>
-                      {`${tmp.depositedAmount} ARMR`}
-                    </Grid>
+                          <Grid item xs={12}>
+                            <TextField style={{ width: "100%" }} id="outlined-basic" variant="outlined" inputProps={{ type: 'number' }} onChange={setAmountValue} />
+                          </Grid>
+                          <Grid item xs={1} />
+                          <Grid item xs={4}>
+                            <LoadingButton
+                              variant="contained"
+                              className="hero-sale-section-modal-button1"
+                              loading={depositLoading}
+                              loadingIndicator={
+                                <CircularProgress color="success" size={20} />
+                              }
+                              onClick={() => {
+                                setDepositLoading(true);
+                                withdraw(key);
+                              }}>
+                              Withdraw
+                            </LoadingButton>
+                          </Grid>
+                          <Grid item xs={2} />
+                          <Grid item xs={4}>
+                            <Button onClick={handleClose2} variant="outlined" className="hero-sale-section-modal-button2">Cancel</Button>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Modal>
                   </Grid>
-                </div>
+                  {/* <Grid itme xs={1}></Grid> */}
+                  <Grid item xs={6}>
+                    You Staked
+                  </Grid>
+                  <Grid item xs={6} style={{ textAlign: 'right' }}>
+                    {`${user[idx].amount} ARMOR`}
+                  </Grid>
+                  <Grid item xs={6}>
+                    Your Reward
+                  </Grid>
+                  <Grid item xs={6} style={{ textAlign: 'right' }}>
+                    <b>{`${user[idx].pendingReward} ARMOR`}</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    Total Staked in Pool
+                  </Grid>
+                  <Grid item xs={6} style={{ textAlign: 'right' }}>
+                    {`${tmp.depositedAmount} ARMR`}
+                  </Grid>
+                </Grid>
               </div>
+            </div>
             </Grid>)
         })}
-      </Grid>
-    </div>
+    </Grid>
+    </div >
   );
 };
 

@@ -311,6 +311,10 @@
 }
 .hero-sale-section-brand-button {
   width: 100%;
+  font-size: 20px;
+  font-family: "Play";
+  font-style: bold;
+  font-weight: 400;
   background-color: darkmagenta !important;
   color: white !important;
 }
@@ -319,13 +323,17 @@
 }
 .hero-sale-section-modal-button1 {
   width:100%;
-  background-color: success !important;
-  color: white !important;
+  font-size: 20px;
+  font-family: "Play";
+  font-style: bold;
+  font-weight: 400;
+  /* background-color: success !important;
+  color: white !important; */
 }
 .hero-sale-section-modal-button2 {
   width:100%;
-  background-color: red !important;
-  color: white !important;
+  /* background-color: red !important;
+  color: white !important; */
 }
 
 @media screen and (max-width: 450px) {
