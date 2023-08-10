@@ -5,7 +5,8 @@ import { mainnetNetwork as chainConfig } from './constants'
 
 const POLLING_INTERVAL = 12000
 // export const rpcUrl = "https://api.avax.network/ext/bc/C/rpc"
-export const rpcUrl = "https://sepolia.infura.io/v3/";
+// export const rpcUrl = "https://sepolia.infura.io/v3/";
+export const rpcUrl = "https://rpc.sepolia.org";
 // const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
 export const chainId = 11155111
 const injected = new InjectedConnector({ supportedChainIds: [chainId] })
@@ -33,7 +34,9 @@ export const getLibrary = (provider) => {
 }
 
 export const updateNetwork = async (library) => {
+  console.log("updateNetwork")
   try {
+    console.log("updatetry")
     await library.provider.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId }],
@@ -41,6 +44,7 @@ export const updateNetwork = async (library) => {
   } catch (switchError) {
     if (switchError.code === 4902) {
       try {
+        console.log("updatecatchtry")
         await library.provider.request({
           method: "wallet_addEthereumChain",
           params: [chainConfig],
@@ -77,8 +81,10 @@ export const signMessage = async (provider, account, message) => {
 export const setupNetwork = async () => {
   const provider = window.ethereum
   if (provider) {
-    const chainId = parseInt(process.env.REACT_APP_MAINNET_CHAINID, 10)
+    // const chainId = parseInt(process.env.REACT_APP_MAINNET_CHAINID, 10)
+    const chainId = 11155111;
     try {
+      console.log("setup network")
       await provider.request({
         method: 'wallet_addEthereumChain',
         params: [

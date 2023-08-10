@@ -23,8 +23,11 @@ const useAuth = () => {
       const connector =
         typeof connectorOrGetConnector !== 'function' ? connectorsByName[connectorID] : await connectorOrGetConnector()
       if (connector) {
+        console.log("connector")
         activate(connector, async (error) => {
+          console.log("activate")
           if (error instanceof UnsupportedChainIdError) {
+            console.log("connector error")
             const hasSetup = await setupNetwork()
             if (hasSetup) {
               activate(connector)
