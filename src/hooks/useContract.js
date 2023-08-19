@@ -8,7 +8,7 @@ export default () => {
             if (ethereum) {
                 const provider = new ethers.providers.Web3Provider(ethereum);
                 const signer = provider.getSigner();
-                // console.log(abi)
+                // console.log(signer)
                 return new ethers.Contract(address, abi.abi, signer);
             } else {
                 const provider = new ethers.providers.JsonRpcProvider(

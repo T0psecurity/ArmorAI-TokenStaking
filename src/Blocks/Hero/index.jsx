@@ -6,6 +6,7 @@ import logoToken from "../../assets/img/background-logo.png";
 import Icon from "../../components/Icon";
 const HeroSection = ({
   offsetY,
+  connectedStatus,
   setisWalletOptionsOpen,
 }) => {
   return (
@@ -22,7 +23,10 @@ const HeroSection = ({
       </div>
       <h2 className="hero-container-mark-title">ARMOR STAKING</h2>
       <div className="hero-container">
-        <Sale/>
+        <Sale
+          isWalletOpen={setisWalletOptionsOpen}
+          connectedStatus={connectedStatus}
+        />
       </div>
     </div>
   );

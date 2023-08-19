@@ -4,12 +4,20 @@ import "./style.css";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import useAuth from "../../hooks/useAuth";
 
-const WalletMenu = ({ isWalletOptionsOpen, setisWalletOptionsOpen }) => {
+const WalletMenu = ({ isWalletOptionsOpen, setisWalletOptionsOpen, setConnectedStatus }) => {
   //state for openning profile menu
   const [isOpenWallet, setisOpenWallet] = useState(false);
   const [isOpenTransactions, setisOpenTransactions] = useState(false);
   const { account: wallet } = useActiveWeb3React()
   const { logout: disconnectWallet } = useAuth()
+
+  useEffect(() => {
+    if (wallet) {
+      setConnectedStatus(true);
+    } else {
+      setConnectedStatus(false);
+    }
+  }, [wallet])
 
   useEffect(() => {
     setisWalletOptionsOpen(false);
