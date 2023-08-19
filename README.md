@@ -29,7 +29,7 @@ npm start
 
 💻 **BackEnd**
 
-- Blochain
+- Blockchain
 
 ### [Deployment]
 
